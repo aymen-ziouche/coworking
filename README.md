@@ -1,7 +1,8 @@
 ## Mactabbi
 
 Mactabbi is a co-working space reservation platform that allows users to browse, reserve, and enter different co-working spaces using generated QR codes. Users can also purchase points to use for reserving co-working spaces.
-Features
+
+# Features
 
     Browse and search different co-working spaces
     Reserve co-working spaces using purchased points

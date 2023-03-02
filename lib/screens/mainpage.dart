@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mactabbi/screens/typepage.dart';
 import 'package:mactabbi/widgets/header_widget.dart';
-import 'package:mactabbi/widgets/membership_widget.dart';
-import 'package:mactabbi/widgets/space_type_widget.dart';
-import 'package:mactabbi/widgets/top_space_widget.dart';
+import 'package:mactabbi/widgets/mainpageWidgets/membership_widget.dart';
+import 'package:mactabbi/widgets/mainpageWidgets/space_type_widget.dart';
+import 'package:mactabbi/widgets/mainpageWidgets/top_space_widget.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -38,7 +39,9 @@ class MainPage extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: 6,
                     controller: PageController(
-                        initialPage: 6 ~/ 2, viewportFraction: 0.8),
+                      initialPage: 6 ~/ 2,
+                      viewportFraction: 0.8,
+                    ),
                     clipBehavior: Clip.none,
                     itemBuilder: (BuildContext context, int index) {
                       return const TopSpaceWidget(
@@ -70,8 +73,16 @@ class MainPage extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: 4,
                     itemBuilder: (BuildContext context, int index) {
-                      return const SpaceTypeWidget(
-                        spaceType: "SpaceType",
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TypePage()));
+                        },
+                        child: const SpaceTypeWidget(
+                          spaceType: "SpaceType",
+                        ),
                       );
                     },
                   ),
@@ -90,6 +101,9 @@ class MainPage extends StatelessWidget {
                   membershipvalue: 0.4,
                   dateRemaning: "15 Days",
                 ),
+                const SizedBox(
+                  height: 15,
+                )
               ],
             ),
           ),

@@ -12,10 +12,20 @@ class MembershipWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: Colors.grey,
+          width: 0.5,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0.1, 0.1), // changes position of shadow
+          ),
+        ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
