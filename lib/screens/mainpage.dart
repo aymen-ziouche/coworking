@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mactabbi/screens/spacepage.dart';
 import 'package:mactabbi/screens/typepage.dart';
 import 'package:mactabbi/widgets/header_widget.dart';
 import 'package:mactabbi/widgets/mainpageWidgets/membership_widget.dart';
@@ -44,11 +45,19 @@ class MainPage extends StatelessWidget {
                     ),
                     clipBehavior: Clip.none,
                     itemBuilder: (BuildContext context, int index) {
-                      return const TopSpaceWidget(
-                        spaceImageUrl:
-                            "https://casacor.abril.com.br/wp-content/uploads/sites/7/2021/08/selina-coworkings-em-sao-paulo.jpg?quality=80&strip=info&w=1024",
-                        spacedistance: "5 KM",
-                        spacename: "Inspire Co-Working",
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SpacePage()));
+                        },
+                        child: const TopSpaceWidget(
+                          spaceImageUrl:
+                              "https://casacor.abril.com.br/wp-content/uploads/sites/7/2021/08/selina-coworkings-em-sao-paulo.jpg?quality=80&strip=info&w=1024",
+                          spacedistance: "5 KM",
+                          spacename: "Inspire Co-Working",
+                        ),
                       );
                     },
                   ),

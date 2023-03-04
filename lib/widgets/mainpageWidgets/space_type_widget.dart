@@ -7,12 +7,12 @@ class SpaceTypeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 50,
+      height: 40,
+      width: 40,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
-          topRight: Radius.circular(50),
+          topRight: Radius.circular(10),
           bottomLeft: Radius.circular(50),
           bottomRight: Radius.circular(10),
         ),
