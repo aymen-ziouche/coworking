@@ -1,114 +1,136 @@
 import 'package:flutter/material.dart';
+import 'package:mactabbi/widgets/mainpageWidgets/rating_widget.dart';
 
 class TopSpaceWidget extends StatelessWidget {
   final String spaceImageUrl;
-  final String spacename;
-  final String spacedistance;
+  final bool fav;
 
-  const TopSpaceWidget(
-      {super.key,
-      required this.spaceImageUrl,
-      required this.spacename,
-      required this.spacedistance});
+  const TopSpaceWidget({
+    super.key,
+    required this.spaceImageUrl,
+    required this.fav,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Container(
-            height: 200,
-            width: 320,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(spaceImageUrl),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              height: 110,
-              width: 220,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.8),
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(
-                    50,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.black12,
+                blurRadius: 5,
+                spreadRadius: 1,
+                offset: Offset(1, 5))
+          ],
+        ),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  height: 100,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(spaceImageUrl),
+                    ),
                   ),
-                  bottomLeft: Radius.circular(10),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      spacename,
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      spacedistance,
-                      style: const TextStyle(color: Colors.white, fontSize: 15),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: 150,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.wifi,
-                              color: Colors.red,
+                  ),
+                  height: 100,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Inspire Co-working",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            const RatingWidget(
+                              rating: 4,
+                            ),
+                            const Spacer(),
+                            Row(
+                              children: const [
+                                Text(
+                                  "6 Min",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                Icon(Icons.arrow_back, size: 14),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Container(
+                          width: 85,
+                          height: 31,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              "Work now",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.tiktok,
-                              color: Colors.red,
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.soap,
-                              color: Colors.red,
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.white,
-                            child: Icon(
-                              Icons.near_me,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                )
+              ],
             ),
-          ),
-        ],
+            Positioned(
+              top: 15,
+              right: 15,
+              child: fav
+                  ? const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 30,
+                    )
+                  : const Icon(
+                      Icons.favorite_outline,
+                      color: Colors.red,
+                      size: 30,
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,61 +1,52 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HeaderWidget extends StatelessWidget {
   final String imageUrl;
-  final String name;
-  final int points;
   final bool qr;
-  const HeaderWidget(
-      {super.key,
-      required this.imageUrl,
-      required this.name,
-      required this.points,
-      required this.qr});
+  const HeaderWidget({super.key, required this.imageUrl, required this.qr});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
+    return Container(
+      height: 65,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 25,
-            backgroundImage: NetworkImage(imageUrl),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Text(
-            name,
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-          const Spacer(),
-          Text(
-            points.toString(),
-            style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor),
-          ),
-          Transform.translate(
-            offset: const Offset(5, 10),
-            child: const Text(
-              'pts',
-              textScaleFactor: 0.8,
+          SizedBox(
+            width: 130,
+            child: Image.asset(
+              'assets/icons/mactabbi.png',
+              fit: BoxFit.cover,
             ),
           ),
-          qr
-              ? const Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Icon(
-                    Icons.qr_code,
-                    size: 30,
-                  ),
-                )
-              : const Text(''),
+          Expanded(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(tapped: () {}, icon: FontAwesomeIcons.bell),
+              IconButton(tapped: () {}, icon: FontAwesomeIcons.qrcode)
+            ],
+          )),
         ],
       ),
     );
   }
+}
+
+Widget IconButton({required Function tapped, required IconData icon}) {
+  return Padding(
+      padding: EdgeInsets.all(3),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black45,
+        ),
+        padding: EdgeInsets.all(7),
+        child: GestureDetector(
+          onTap: () => tapped,
+          child: Icon(icon),
+        ),
+      ));
 }

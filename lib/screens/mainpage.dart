@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mactabbi/screens/spacepage.dart';
-import 'package:mactabbi/screens/typepage.dart';
 import 'package:mactabbi/widgets/header_widget.dart';
 import 'package:mactabbi/widgets/mainpageWidgets/membership_widget.dart';
 import 'package:mactabbi/widgets/mainpageWidgets/space_type_widget.dart';
+import 'package:mactabbi/widgets/mainpageWidgets/stories_widget.dart';
 import 'package:mactabbi/widgets/mainpageWidgets/top_space_widget.dart';
 
 class MainPage extends StatelessWidget {
@@ -11,110 +11,82 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> images = [
+      "assets/images/space6.png",
+      "assets/images/space7.png",
+      "assets/images/space6.png",
+      "assets/images/space7.png",
+      "assets/images/space6.png",
+      "assets/images/space7.png",
+      "assets/images/space6.png",
+    ];
+
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HeaderWidget(
-                  imageUrl:
-                      "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg",
-                  name: "Aymen",
-                  points: 20,
-                  qr: true,
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(100),
+          child: HeaderWidget(
+            imageUrl:
+                "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg",
+            qr: true,
+          ),
+        ),
+        body: SingleChildScrollView(
+          physics: const ScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 8,
+              ),
+              SizedBox(
+                height: 70,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return index == 0
+                        ? const StoriesWidget(user: true)
+                        : const StoriesWidget(user: false);
+                  },
                 ),
-                const SizedBox(
-                  height: 10,
+              ),
+              const SizedBox(
+                height: 26,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  "Where do You \nWant to work today?",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                const Text(
-                  "Top Spaces:",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: 6,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SpacePage()));
+                      },
+                      child: TopSpaceWidget(
+                        spaceImageUrl: images[index],
+                        fav: index == 0 ? true : false,
+                      ),
+                    );
+                  },
                 ),
-                SizedBox(
-                  height: 200,
-                  child: PageView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 6,
-                    controller: PageController(
-                      initialPage: 6 ~/ 2,
-                      viewportFraction: 0.8,
-                    ),
-                    clipBehavior: Clip.none,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SpacePage()));
-                        },
-                        child: const TopSpaceWidget(
-                          spaceImageUrl:
-                              "https://casacor.abril.com.br/wp-content/uploads/sites/7/2021/08/selina-coworkings-em-sao-paulo.jpg?quality=80&strip=info&w=1024",
-                          spacedistance: "5 KM",
-                          spacename: "Inspire Co-Working",
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                      crossAxisCount: 2,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const TypePage()));
-                        },
-                        child: const SpaceTypeWidget(
-                          spaceType: "SpaceType",
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const MembershipWidget(
-                  membershipvalue: 0.4,
-                  dateRemaning: "15 Days",
-                ),
-                const SizedBox(
-                  height: 15,
-                )
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
